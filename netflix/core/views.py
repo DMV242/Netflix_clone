@@ -69,7 +69,10 @@ def search(request):
 @login_required
 def index(request):
     movies = models.Movie.objects.all()
-    featured_movie = movies[random.randint(0, len(movies) - 1)]
+    featured_movie = None
+    if len(movies) != 0:
+        featured_movie = movies[random.randint(0, len(movies) - 1)]
+
     return render(
         request,
         "index.html",

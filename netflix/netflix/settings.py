@@ -75,10 +75,21 @@ WSGI_APPLICATION = "netflix.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "verceldb",
+        "USER": "default",
+        "PASSWORD": "Brpmb6D1HiCu",
+        "HOST": "ep-spring-rice-a456jiqj-pooler.us-east-1.aws.neon.tech",
+        "PORT": "5432",
     }
 }
 
@@ -130,7 +141,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
-CSRF_TRUSTED_ORIGINS = ["*"]
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
