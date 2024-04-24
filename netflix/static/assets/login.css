@@ -96,3 +96,41 @@ body, html {
     text-decoration: underline;
 }
 
+
+@media screen and (max-width:400px) {
+
+    .signup-container{
+        width: 350px;
+    }
+    .signup-container h1 {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+
+    .signup-container input {
+        background: #333;
+        border: 0;
+        color: #fff;
+        height: 15px;
+        line-height: 25px;
+        padding: 10px 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .signup-container .signup-btn {
+        background: #e50914;
+        font-weight: 700;
+        border: none;
+        outline: none;
+        padding: 16px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+
+
+}
