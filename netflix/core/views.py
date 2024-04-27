@@ -13,6 +13,7 @@ from core import models
 @login_required
 def movie(request, uuid):
     movie = models.Movie.objects.get(uu_id=uuid)
+
     return render(request, "movie.html", context={"movie_details": movie})
 
 
