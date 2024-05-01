@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="container mx-auto mt-10">
+    <!-- Movie Title and Back Button -->
+    <div class="flex mb-4 items-center justify-between">
+        <h2 class="md:text-3xl font-semibold">Episode {{episode.order}} : {{episode.title}}
+        </h2>
+        <h3 class="md:text-2xl font-semibold">{{episode.serie.title}} - saison {{episode.saison.order}}</h3>
+        <a href="{% url 'saison-detail' episode.saison.id %}" class="text-gray-400 hover:text-white">← Back to
+            Saison</a>
+    </div>
+
+    <div class="mt-8">
+        <video class="w-full h-auto" controls>
+            <source src="{{episode.video.url}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!-- Movie Description -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-2">About the Movie</h3>
+            <p class="w-fit bg-red-500 break-words">
+                {{episode.description}}
+            </p>
+        </div>
+    </div>
+
+    {% endblock content %}

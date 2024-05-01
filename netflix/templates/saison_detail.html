@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-10 px-5">
+
+    <div align="center">
+        <h2 class="text-xl mb-5">
+            Saison {{ saison.order }} : {{saison.name}} of {{saison.serie.title}}
+        </h2>
+    </div>
+    <div class="flex space-x-5 overflow-x-auto ">
+        <ul>
+            {% for episode in episodes %}
+
+            <li>
+                <p>Episode {{episode.order}}</p>
+                {{episode.title}} - {{episode.serie}}
+                <p>{{episode.description}}</p>
+                <a href="{% url 'episode' episode.serie.uu_id episode.saison.order episode.order %}">Voir episode </a>
+            </li>
+
+            {% endfor %}
+        </ul>
+</section>
+
+
+
+
+{% endblock content %}

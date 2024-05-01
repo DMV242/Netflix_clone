@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="container mx-auto mt-10">
+    <!-- Movie Title and Back Button -->
+    <div class="flex items-center justify-between">
+        <h2 class="text-3xl font-semibold">{{serie_details.title}} - {{ episode.title }}</h2>
+        <a href="/" class="text-gray-400 hover:text-white">← Back to Home</a>
+    </div>
+
+    <div class="mt-8">
+        <video class="w-full h-auto" controls>
+            <source src="{{episode.video.url}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!-- serie Description -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-2">About the serie</h3>
+            <p>
+                {{serie_details.description}}
+            </p>
+        </div>
+    </div>
+
+    {% endblock content %}

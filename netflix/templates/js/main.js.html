@@ -1,4 +1,10 @@
 <script>
+    function isElementExistsAndPerformAction(element, action) {
+        if (element) {
+            action();
+        }
+    }
+
     function showGenreMenu() {
         const el = document.querySelector("#dropdownMenuFooter");
         el.style.display = "block";
@@ -24,6 +30,12 @@
 
 
     function showModal(element) {
+        const modal = document.getElementById('movieModal');
+        isElementExistsAndPerformAction(document.querySelector(".play-modal"), () => {
+            document.querySelector(".play-modal").classList.remove("hidden");
+        })
+
+
         // Retrieve data attributes
         const title = element.getAttribute('data-title');
         const description = element.getAttribute('data-description');
@@ -33,9 +45,43 @@
         const imageCardUrl = element.getAttribute('data-image-card-url');
         const imageCoverUrl = element.getAttribute('data-image-cover-url');
         const dataVideoUrl = element.getAttribute('data-video-url');
+        const type = element.getAttribute('data-type');
+        const uuid = element.getAttribute('data-uuid');
+        const inputHiddenModal = document.querySelector("#typeModal")
+        inputHiddenModal.value = type;
+
+        let saisons;
+        isElementExistsAndPerformAction(document.querySelector("#serie-saison"), () => {
+            document.querySelector("#serie-saison").textContent = "";
+        })
+        if (type === "serie") {
+            isElementExistsAndPerformAction(document.querySelector(".play-modal"), () => {
+                document.querySelector(".play-modal").classList.add("hidden");
+            })
+            $.ajax({
+                url: `{% url 'saison' %}`,
+                type: "GET",
+                data: {
+                    uuid: uuid
+                },
+
+                success: function (result) {
+                    saisons = JSON.parse(result);
+                    for (saison of saisons) {
+                        const url = "{% url 'saison-detail' 123 %}"
+                        const formatUrl = url.replace('123', saison.id);
+                        document.querySelector("#serie-saison").insertAdjacentHTML('beforeend', `<a href="${formatUrl}">saison ${saison.id} - ${saison.name}</a></br>`)
+                    }
+                },
+                error: function () {
+                    alert("An error occured while loading the episodes of this serie.");
+                }
+            });
+        }
+
 
         // Update the modal's content with the movie details
-        const modal = document.getElementById('movieModal');
+
         modal.querySelector('.modal-content h2').textContent = title;
         modal.querySelector('.modal-content img').src = imageCoverUrl;
         modal.querySelector('.modal-content a').href = dataVideoUrl;
@@ -45,12 +91,20 @@
         modal.querySelector('.modal-content .flex span:last-child').textContent = "Length: " + length + "min";
         modal.querySelector('.modal-content p').textContent = description;
 
+
+
+
         // Show the modal
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('modal-show');
         }, 50);
+
+
+
+
     }
+
 
     function hideModal() {
         const modal = document.querySelector('.modal');
@@ -68,27 +122,23 @@
     }
 
     function addItemToList() {
-        const modal = document.getElementById('movieModal')
-        var movieID = modal.querySelector('.modal-content a').href.split("/").at(-1);
 
-
+        const modal = document.getElementById('movieModal');
+        const inputHiddenModal = document.querySelector("#typeModal")
+        const movieID = modal.querySelector('.modal-content a').href.split("/").at(-1);
         $.ajax({
             url: "{% url 'add-to-list' %}",
-            type: "POST",
-
+            type: "GET",
             data: {
                 movie_id: movieID,
-                csrfmiddlewaretoken: "{{ csrf_token }}"
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                type: inputHiddenModal.value
             },
             success: function (data) {
-
                 $('#addToListButton').text(data.message);
-
                 $('#addToListButton').prop('disabled', true);
 
-                setTimeout(() => $('#addToListButton').text("Add To list "), 3000)
-
-
+                setTimeout(() => $('#addToListButton').text("Add To list "), 1000)
             },
             error: function (xhr, errmsg, err) {
 

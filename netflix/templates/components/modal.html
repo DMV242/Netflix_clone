@@ -1,0 +1,33 @@
+<!-- Modal -->
+<div class="modal" id="movieModal" style="z-index: 1000;">
+    <div class="modal-content">
+        <div class="flex justify-between">
+            <h2 class="text-xl mb-5">Movie Title</h2>
+
+            <button onclick="hideModal()">X</button>
+        </div>
+        <div>
+            <img width="200px"
+                src="https://bloximages.newyork1.vip.townnews.com/newsrecord.org/content/tncms/assets/v3/editorial/8/1e/81ea500c-45ac-11ee-a11e-a7402910a7e7/64ecaae69243a.image.jpg"
+                alt="Movie Image" class=" mb-5">
+        </div>
+        <div class="flex justify-between mb-5">
+            <span>Year: 2023</span>
+            <span>Length: 2h 15min</span>
+        </div>
+        <p class="mb-5">Detailed information about the movie.</p>
+        <div class="flex space-x-4 mb-5">
+            <a href="movie.html">
+                <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500 play-modal">Play</button>
+            </a>
+            <button id="addToListButton" onclick="addItemToList()"
+                class="border border-white text-white p-2 px-5 rounded hover:bg-gray-700">
+                Add to List
+            </button>
+        </div>
+        <div id="serie-saison">
+        </div>
+        <input type="hidden" id="typeModal" />
+
+    </div>
+</div>
